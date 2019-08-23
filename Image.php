@@ -29,7 +29,7 @@ class Image
     {
         if(!($filename && is_file(($filename = Yii::getAlias('@webroot') . $filename))))
         {
-            $filename = Yii::getAlias('@webroot') . '/bin/media/img/noimage.jpg';
+            $filename = __DIR__ . DIRECTORY_SEPARATOR . 'noimage.png';
         }
 
         $info = pathinfo($filename);
