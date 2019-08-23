@@ -1,0 +1,19 @@
+{
+    "name": "kilyakus/yii2-helpers-image",
+    "type": "yii2-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kilyakus",
+            "email": "aleksandr.kilyakov@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "kilyakus\\helpers\\": ""
+        }
+    }
+}
