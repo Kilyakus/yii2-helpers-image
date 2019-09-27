@@ -1,5 +1,5 @@
 {
-    "name": "kilyakus/yii2-helpers-image",
+    "name": "kilyakus/yii2-widget-imageprocessor",
     "type": "yii2-extension",
     "license": "MIT",
     "authors": [
@@ -13,7 +13,7 @@
     },
     "autoload": {
         "psr-4": {
-            "kilyakus\\helpers\\": ""
+            "kilyakus\\imageprocessor\\": "src"
         }
     }
 }

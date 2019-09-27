@@ -1,5 +1,5 @@
 <?php
-namespace kilyakus\helpers;
+namespace kilyakus\imageprocessor;
 
 use Yii;
 use yii\web\UploadedFile;
@@ -7,7 +7,6 @@ use \yii\web\HttpException;
 use yii\helpers\Inflector;
 use yii\helpers\StringHelper;
 use yii\helpers\FileHelper;
-use yii\helpers\Url;
 
 class Upload
 {

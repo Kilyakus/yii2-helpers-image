@@ -1,5 +1,5 @@
 <?php
-namespace kilyakus\helpers;
+namespace kilyakus\imageprocessor;
 
 class GD
 {
