@@ -97,8 +97,8 @@ class Image
         $filename = Image::thumb($filename, ($w/$percent), ($h/$percent));
 
         $file = Yii::getAlias('@webroot').$filename;
-        $tmp = md5($filename);
-        $filename = '/' . Upload::$UPLOADS_DIR . '/thumbs/'.$tmp.'.jpeg';
+
+        $filename = '/' . Upload::$UPLOADS_DIR . '/thumbs/blur-'.md5($filename).'.jpeg';
         $temp = Yii::getAlias('@webroot').$filename;
         if(!file_exists($temp)){
             copy($file, $temp);
@@ -114,6 +114,55 @@ class Image
                 } 
                 imagefilter($result, IMG_FILTER_SMOOTH,99);
 
+                imagejpeg($result, $temp);
+
+                imagedestroy($result);
+            }
+        }
+
+        return Image::thumb($filename, $w, $h);
+    }
+
+    public static  function map($filename,$w = null,$h = null,$percent = 1.5)
+    {
+        if(!file_exists($filename) && !file_exists(Yii::getAlias('@webroot') . $filename)){
+            return false;
+        }
+        
+        if(!$w){
+            $w = 480;
+        }
+
+        $filename = Image::thumb($filename, ($w/$percent), ($h/$percent));
+
+        $file = Yii::getAlias('@webroot').$filename;
+
+        $filename = '/' . Upload::$UPLOADS_DIR . '/thumbs/bump-'.md5($filename).'.jpeg';
+        $temp = Yii::getAlias('@webroot').$filename;
+        if(!file_exists($temp)){
+            copy($file, $temp);
+            if (exif_imagetype($temp) == IMAGETYPE_JPEG) {
+                $result = imagecreatefromjpeg($temp);
+            }
+            else if (exif_imagetype($temp) == IMAGETYPE_PNG) {
+                $result = imagecreatefrompng($temp);
+            }
+            if($result){
+
+                imagefilter($result, IMG_FILTER_GRAYSCALE);
+
+                imagefilter($result, IMG_FILTER_NEGATE);
+
+                for ($x=1; $x<=10; $x++){
+                    imagefilter($result, IMG_FILTER_GAUSSIAN_BLUR,999);
+                } 
+
+                imagefilter($result, IMG_FILTER_SMOOTH,99);
+
+                imagefilter($result, IMG_FILTER_CONTRAST,75);
+
+                imagefilter($result, IMG_FILTER_BRIGHTNESS,60);
+                
                 imagejpeg($result, $temp);
 
                 imagedestroy($result);
