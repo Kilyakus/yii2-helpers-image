@@ -6,7 +6,7 @@ use yii\helpers\Html;
 
 class Parallax
 {
-    static function get($filename, $width = null, $height = null, $percent = 1.5, $options = [])
+    static function init($filename, $width = null, $height = null, $percent = 1.5, $options = [])
     {
         $attributes = self::__getAttributes($filename, $width, $height, $percent, $options);
 
@@ -30,10 +30,10 @@ class Parallax
     {
         $filename = Image::thumb($filename, $width, $height, true);
 
-        $container = 'p-' . substr(md5($filename), 0, 6) . rand(1000,10);
+        $container = 'gl-' . substr(md5($filename), 0, 6) . rand(1000,10);
 
         $attributes = [
-            'id' => $container,
+            'id' => 'gl',//$container,
             'data-imageOriginal' => $filename,
             'data-imageDepth' => Image::bump($filename,$width,$height,$percent),
             'data-horizontalThreshold' => 60,

@@ -14,7 +14,7 @@ class ParallaxAsset extends AssetBundle
         $this->sourcePath = __DIR__ . '/assets/parallax';
 
         $this->js[] = 'js/app.js';
-        $this->js[] = 'js/src.js';
+        // $this->js[] = 'js/src.js';
         
         parent::init();
     }

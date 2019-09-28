@@ -137,7 +137,7 @@ class Image
 
         $file = Yii::getAlias('@webroot').$filename;
 
-        $filename = '/' . Upload::$UPLOADS_DIR . '/thumbs/bump-trhrt54'.md5($filename).'.jpeg';
+        $filename = '/' . Upload::$UPLOADS_DIR . '/thumbs/bump-'.md5($filename).'.jpeg';
         $temp = Yii::getAlias('@webroot').$filename;
         if(!file_exists($temp)){
             copy($file, $temp);

@@ -2,6 +2,7 @@ import fragment from './shaders/fragment.glsl';
 import vertex from './shaders/vertex.glsl';
 
 import GyroNorm from './lib/gyronorm';
+console.log(GyroNorm);
 const gn = new GyroNorm.GyroNorm();
 
 export default class Sketch {

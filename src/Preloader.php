@@ -6,11 +6,9 @@ use yii\helpers\Html;
 
 class Preloader
 {
-    static function get($filename, $width = null, $height = null, $percent = 1.5, $options = [])
+    static function init($filename, $width = null, $height = null, $percent = 1.5, $options = [])
     {
         $attributes = self::__getAttributes($filename, $width, $height, $percent, $options);
-
-        $attributes = array_merge($attributes,['class' => 'img ' . $options['class']]);
 
         $view = Yii::$app->view;
 
@@ -38,9 +36,14 @@ class Preloader
             'style' => 'background-image:url(' . Image::blur($filename,$width,$height,$percent) . ');'
         ];
 
-        $view = Yii::$app->view;
+        $initializer = ['class' => 'preload'];
 
-        $view->registerJs("$('#".$container."').addClass('preload');",$view::POS_READY);
+        $initializer = isset($options['class']) ?
+            array_merge($initializer,$options['class']) : $initializer;
+
+        Html::addCssClass($attributes,$initializer);
+
+        $view = Yii::$app->view;
 
         PreloaderAsset::register($view);
 
