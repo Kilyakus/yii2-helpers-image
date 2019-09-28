@@ -4,13 +4,13 @@ namespace kilyakus\imageprocessor;
 use Yii;
 use yii\helpers\Html;
 
-class Preloader
+class Parallax
 {
     static function get($filename, $width = null, $height = null, $percent = 1.5, $options = [])
     {
         $attributes = self::__getAttributes($filename, $width, $height, $percent, $options);
 
-        $attributes = array_merge($attributes,['class' => 'img ' . $options['class']]);
+        $attributes = array_merge($attributes,['class' => 'parallax ' . $options['class']]);
 
         $view = Yii::$app->view;
 
@@ -34,15 +34,15 @@ class Preloader
 
         $attributes = [
             'id' => $container,
-            'data-image' => $filename,
-            'style' => 'background-image:url(' . Image::blur($filename,$width,$height,$percent) . ');'
+            'data-imageOriginal' => $filename,
+            'data-imageDepth' => Image::bump($filename,$width,$height,$percent),
+            'data-horizontalThreshold' => 60,
+            'data-verticalThreshold' => 60
         ];
 
         $view = Yii::$app->view;
 
-        $view->registerJs("$('#".$container."').addClass('preload');",$view::POS_READY);
-
-        PreloaderAsset::register($view);
+        ParallaxAsset::register($view);
 
         return $attributes;
     }

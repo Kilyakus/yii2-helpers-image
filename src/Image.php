@@ -123,7 +123,7 @@ class Image
         return Image::thumb($filename, $w, $h);
     }
 
-    public static  function map($filename,$w = null,$h = null,$percent = 1.5)
+    public static  function bump($filename,$w = null,$h = null,$percent = 1.5)
     {
         if(!file_exists($filename) && !file_exists(Yii::getAlias('@webroot') . $filename)){
             return false;
@@ -137,7 +137,7 @@ class Image
 
         $file = Yii::getAlias('@webroot').$filename;
 
-        $filename = '/' . Upload::$UPLOADS_DIR . '/thumbs/bump-'.md5($filename).'.jpeg';
+        $filename = '/' . Upload::$UPLOADS_DIR . '/thumbs/bump-trhrt54'.md5($filename).'.jpeg';
         $temp = Yii::getAlias('@webroot').$filename;
         if(!file_exists($temp)){
             copy($file, $temp);
@@ -148,20 +148,25 @@ class Image
                 $result = imagecreatefrompng($temp);
             }
             if($result){
+                
+                imagefilter($result, IMG_FILTER_MEAN_REMOVAL);
 
                 imagefilter($result, IMG_FILTER_GRAYSCALE);
 
+                // imagefilter($result, IMG_FILTER_CONTRAST,75);
+
+                // imagefilter($result, IMG_FILTER_BRIGHTNESS,70);
+
+                imagefilter($result, IMG_FILTER_CONTRAST,-35);
+
+                imagefilter($result, IMG_FILTER_BRIGHTNESS,230);
                 imagefilter($result, IMG_FILTER_NEGATE);
 
-                for ($x=1; $x<=10; $x++){
+                for ($x=1; $x<=15; $x++){
                     imagefilter($result, IMG_FILTER_GAUSSIAN_BLUR,999);
                 } 
 
                 imagefilter($result, IMG_FILTER_SMOOTH,99);
-
-                imagefilter($result, IMG_FILTER_CONTRAST,75);
-
-                imagefilter($result, IMG_FILTER_BRIGHTNESS,60);
                 
                 imagejpeg($result, $temp);
 
