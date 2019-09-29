@@ -14,6 +14,8 @@ class Avatar
     {
         if(!($filename && is_file(($filename = Yii::getAlias('@webroot') . $filename))))
         {
+            $text = trim($text);
+            
             if(count(explode(' ', $text)) > 1){
                 $text = explode(' ', $text);
                 $letters = [];
