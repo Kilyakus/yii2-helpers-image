@@ -36,16 +36,14 @@ class Preloader
             'style' => 'background-image:url(' . Image::blur($filename,$width,$height,$percent) . ');'
         ];
 
-        $initializer = ['class' => 'preload'];
-
-        $initializer = isset($options['class']) ?
-            array_merge($initializer,$options['class']) : $initializer;
-
-        Html::addCssClass($attributes,$initializer);
+        $attributes = isset($options['class']) ?
+            array_merge($attributes,$options['class']) : $attributes;
 
         $view = Yii::$app->view;
 
         PreloaderAsset::register($view);
+
+        $view->registerJs("$('#" . $attributes['id'] . "').addClass('".$attributes['class']."')",$view::POS_END);
 
         return $attributes;
     }
