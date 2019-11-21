@@ -4,8 +4,9 @@ namespace kilyakus\imageprocessor;
 use Yii;
 use yii\web\UploadedFile;
 use yii\web\HttpException;
-use yii\helpers\FileHelper;
 use yii\helpers\Html;
+use yii\helpers\Inflector;
+use yii\helpers\FileHelper;
 
 class Image
 {
@@ -86,25 +87,54 @@ class Image
 
     public function copyImage($image, $path)
     {
-        $info = pathinfo($image);
-
-        $path_image = $path . '/' . $info['filename'] . '-' . md5($file) . '.' . $info['extension'];
+        $uploadUrl = '/' . Upload::$UPLOADS_DIR . '/' . $path . '/';
+        
+        $path = $uploadUrl . self::parseName($image);
 
         if (self::fileExists($image)) {
-            if (!file_exists($path)) { 
-                mkdir($path, 0777, true);
+
+            if (!file_exists($_SERVER['DOCUMENT_ROOT'] . $uploadUrl)) { 
+                mkdir($_SERVER['DOCUMENT_ROOT'] . $uploadUrl, 0777, true);
             }
-            copy($image, $_SERVER['DOCUMENT_ROOT'] . '/' . Upload::$UPLOADS_DIR . '/' . $path_image);
-            return '/' . Upload::$UPLOADS_DIR . '/' . $path_image;
+
+            copy($image, $_SERVER['DOCUMENT_ROOT'] . $path);
+
+            return $path;
+
         } else {
+
             return false;
+
         }
     }
+
+    public function parseName($path)
+    {
+        $info = pathinfo($path);
+
+        $basename = Inflector::slug($info['filename']);
+
+        if(!$info['extension']){
+
+            $info = curl_file_create($path, 'image/png', $basename . '.png');
+
+            $path = $basename . '-' . md5($path) . '.png';
+
+        }else{
+
+            $path = $basename . '-' . md5($path) . '.' . $info['extension'];
+
+        }
+
+        return $path;
+    }
+
 
     public function fileExists($path)
     {
         return (@fopen($path, "r") == true);
     }
+
 
     public static  function blur($filename,$w = null,$h = null,$percent = 1.5)
     {
