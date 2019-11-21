@@ -114,11 +114,13 @@ class Image
 
         $basename = Inflector::slug($info['filename']);
 
-        if(!$info['extension']){
+        if(!$info['extension'] || !(!preg_match('/[^A-Za-z]/', $info['extension']))){
+
+            $basename = md5($basename);
 
             $info = curl_file_create($path, 'image/png', $basename . '.png');
 
-            $path = $basename . '-' . md5($path) . '.png';
+            $path = md5($basename . $path) . '.png';
 
         }else{
 
