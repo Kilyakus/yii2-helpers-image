@@ -36,8 +36,8 @@ class Parallax
             'id' => 'gl',//$container,
             'data-imageOriginal' => $filename,
             'data-imageDepth' => Image::bump($filename, $width, $height, $percent),
-            'data-horizontalThreshold' => 60,
-            'data-verticalThreshold' => 60,
+            'data-horizontalThreshold' => 70,
+            'data-verticalThreshold' => 50,
             'style' => 'background-image:url(' . Image::blur($filename, $width/1.5, $height/1.5, 1.5) . ');background-size:cover;'
         ];
 

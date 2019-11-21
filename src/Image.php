@@ -84,6 +84,28 @@ class Image
         }
     }
 
+    public function copyImage($image, $path)
+    {
+        $info = pathinfo($image);
+
+        $path_image = $path . '/' . $info['filename'] . '-' . md5($file) . '.' . $info['extension'];
+
+        if (self::fileExists($image)) {
+            if (!file_exists($path)) { 
+                mkdir($path, 0777, true);
+            }
+            copy($image, $_SERVER['DOCUMENT_ROOT'] . '/' . Upload::$UPLOADS_DIR . '/' . $path_image);
+            return '/' . Upload::$UPLOADS_DIR . '/' . $path_image;
+        } else {
+            return false;
+        }
+    }
+
+    public function fileExists($path)
+    {
+        return (@fopen($path, "r") == true);
+    }
+
     public static  function blur($filename,$w = null,$h = null,$percent = 1.5)
     {
         if(!file_exists($filename) && !file_exists(Yii::getAlias('@webroot') . $filename)){
