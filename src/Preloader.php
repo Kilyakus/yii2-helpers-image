@@ -12,7 +12,7 @@ class Preloader
 
         $view = Yii::$app->view;
 
-        $view->registerCss('#' . $attributes['id'] . ' {width:'.$width.'px;height:'.$height.'px;}');
+        $view->registerCss('#' . $attributes['id'] . ' {width:'.$width.'px;max-width:100%;height:'.$height.'px;background-size:cover;background-position:center;}');
 
         echo Html::tag('div','',$attributes);
     }
