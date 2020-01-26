@@ -13,8 +13,8 @@ class PreloaderAsset extends AssetBundle
     {
         $this->sourcePath = __DIR__ . '/assets/preloader';
 
-        $this->js[] = 'js/preloader.js';
-        $this->css[] = 'css/preloader.css';
+        $this->js[] = 'js/widget-preloader.min.js';
+        $this->css[] = 'css/widget-preloader.min.css';
         
         parent::init();
     }
