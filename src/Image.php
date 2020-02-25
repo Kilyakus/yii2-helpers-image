@@ -177,7 +177,7 @@ class Image
         return Image::thumb($filename, $w, $h);
     }
 
-    public static  function bump($filename,$w = null,$h = null,$percent = 1.5)
+    public static function bump($filename,$w = null,$h = null,$percent = 1.5)
     {
         if(!file_exists($filename) && !file_exists(Yii::getAlias('@webroot') . $filename)){
             return false;
